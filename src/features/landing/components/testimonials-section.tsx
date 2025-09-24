@@ -101,7 +101,7 @@ export const TestimonialsSection = () => {
                 <div className="flex items-start gap-3 mb-4">
                   <Quote className="h-6 w-6 text-primary/30 flex-shrink-0 mt-1" />
                   <p className="text-sm text-muted-foreground italic">
-                    "{testimonial.text}"
+                    {`${testimonial.text}`}
                   </p>
                 </div>
 
