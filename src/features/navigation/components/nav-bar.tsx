@@ -21,10 +21,7 @@ export const NavBar = () => {
       name: "Home",
       link: "/",
     },
-    {
-      name: "About",
-      link: "/about",
-    },
+
     {
       name: "Shop",
       link: "/shop",
@@ -32,10 +29,10 @@ export const NavBar = () => {
   ];
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   return (
-    <div className="w-full">
+    <div className="w-[90%]">
       <Navbar className="fixed top-0 z-50">
         {/* Desktop Navigation */}
-        <NavBody className="font-light">
+        <NavBody className="font-light ">
           <NavbarLogo />
           <NavItems items={navItems} className="font-light" />
           <div className="flex items-center gap-4">

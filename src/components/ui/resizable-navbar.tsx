@@ -9,6 +9,7 @@ import {
 } from "motion/react";
 
 import React, { useRef, useState } from "react";
+import { Separator } from "./separator";
 
 interface NavbarProps {
   children: React.ReactNode;
@@ -68,7 +69,7 @@ export const Navbar = ({ children, className }: NavbarProps) => {
     <motion.div
       ref={ref}
       // IMPORTANT: Change this to class of `fixed` if you want the navbar to be fixed
-      className={cn("sticky inset-x-0 top-20 z-40 w-full", className)}
+      className={cn("sticky inset-x-0 top-20 z-40 w-screen mx-auto", className)}
     >
       {React.Children.map(children, (child) =>
         React.isValidElement(child)
@@ -99,10 +100,10 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
         damping: 50,
       }}
       style={{
-        minWidth: "800px",
+        minWidth: "600px",
       }}
       className={cn(
-        "relative z-[60] mx-auto hidden w-full max-w-7xl flex-row items-center justify-between self-start rounded-full bg-transparent px-4 py-2 lg:flex dark:bg-transparent",
+        "relative z-[60] mx-auto hidden w-full max-w-[90%] flex-row items-center justify-between self-start rounded-full bg-transparent px-4 py-2 md:flex dark:bg-transparent",
         visible && "bg-white/80 dark:bg-neutral-950/80",
         className,
       )}
@@ -119,15 +120,16 @@ export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
     <motion.div
       onMouseLeave={() => setHovered(null)}
       className={cn(
-        "absolute inset-0 hidden flex-1 flex-row items-center justify-center space-x-2 text-sm font-medium text-zinc-600 transition duration-200 hover:text-zinc-800 lg:flex lg:space-x-2",
+        "absolute inset-0 hidden flex-1 flex-row items-center justify-center space-x-2 text-sm font-medium text-zinc-600 transition duration-200 hover:text-zinc-800 md:flex md:space-x-2",
         className,
       )}
     >
+      <Separator orientation="vertical" className="max-h-[50%] my-auto" />
       {items.map((item, idx) => (
         <a
           onMouseEnter={() => setHovered(idx)}
           onClick={onItemClick}
-          className="relative px-4 py-2 text-neutral-600 dark:text-neutral-300"
+          className="relative px-4 py-2 text-neutral-600 dark:text-neutral-300 "
           key={`link-${idx}`}
           href={item.link}
         >
@@ -147,6 +149,7 @@ export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
           </span>
         </a>
       ))}
+      <Separator orientation="vertical" className="max-h-[50%] my-auto" />
     </motion.div>
   );
 };
@@ -155,7 +158,7 @@ export const MobileNav = ({ children, className, visible }: MobileNavProps) => {
   return (
     <div
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 flex w-screen flex-col items-center justify-between bg-white/95 backdrop-blur-sm border-b border-gray-200/50 px-4 py-3 lg:hidden dark:bg-neutral-950/95 dark:border-neutral-800/50",
+        "fixed top-0 left-0 right-0 z-50 flex w-screen flex-col items-center justify-between bg-white/95 backdrop-blur-sm border-b border-gray-200/50 px-4 py-3 md:hidden dark:bg-neutral-950/95 dark:border-neutral-800/50",
         className,
       )}
     >
