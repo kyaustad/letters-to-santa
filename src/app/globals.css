@@ -212,6 +212,6 @@ body {
 
 @media (max-width: 480px) {
   .curved-text-container svg text {
-    font-size: 6rem;
+    font-size: 10rem;
   }
 }
