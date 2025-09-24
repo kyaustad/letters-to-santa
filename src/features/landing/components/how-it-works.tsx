@@ -105,15 +105,15 @@ export const HowItWorks = () => {
             <div className="text-center">
               <Truck className="h-6 w-6 text-accent mx-auto mb-2" />
               <p className="text-sm font-medium">{`Delivery`}</p>
-              <p className="text-xs text-muted-foreground">{`USPS Depending on location`}</p>
+              <p className="text-xs text-muted-foreground">{`USPS`}</p>
             </div>
           </div>
 
           <div className="text-center">
             <p className="text-sm text-muted-foreground">
-              <strong>{`Total time:`}</strong>{" "}
+              <strong>{`Total Time:`}</strong>{" "}
               {`6-12 business days from order to
-              delivery `}
+              delivery dependant on USPS`}
             </p>
             <p className="text-xs text-primary mt-1">
               {`Order by December 1st for Christmas delivery`}
