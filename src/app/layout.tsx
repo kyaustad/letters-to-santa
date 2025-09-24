@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Belanosima, Geist_Mono } from "next/font/google";
+import { Belanosima, Geist_Mono, Luxurious_Script } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
 
@@ -12,6 +12,12 @@ const belanosima = Belanosima({
   variable: "--font-belanosima",
   subsets: ["latin"],
   weight: ["400", "600", "700"],
+});
+
+const luxuriousScript = Luxurious_Script({
+  variable: "--font-luxurious-script",
+  subsets: ["latin"],
+  weight: ["400"],
 });
 
 export const metadata: Metadata = {
@@ -27,7 +33,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={` ${geistMono.variable} ${belanosima.variable} antialiased transition-all duration-500`}
+        className={` ${geistMono.variable} ${belanosima.variable} ${luxuriousScript.variable} antialiased transition-all duration-500`}
       >
         <Providers>{children}</Providers>
       </body>

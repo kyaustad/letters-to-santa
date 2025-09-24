@@ -37,21 +37,23 @@
   --sidebar-border: oklch(0.2795 0.0368 260.031);
   --sidebar-ring: oklch(0.5716 0.2125 27.2739);
   --font-sans: Belanosima, ui-sans-serif, sans-serif, system-ui;
+  --font-luxurious-script:
+    Luxurious_Script, ui-sans-serif, sans-serif, system-ui;
   --font-serif: serif;
   --font-mono: monospace;
   --radius: 0.75rem;
   --shadow-2xs: 0px 4px 10px 0px hsl(0 0% 0% / 0.05);
   --shadow-xs: 0px 4px 10px 0px hsl(0 0% 0% / 0.05);
-  --shadow-sm: 0px 4px 10px 0px hsl(0 0% 0% / 0.1),
-    0px 1px 2px -1px hsl(0 0% 0% / 0.1);
-  --shadow: 0px 4px 10px 0px hsl(0 0% 0% / 0.1),
-    0px 1px 2px -1px hsl(0 0% 0% / 0.1);
-  --shadow-md: 0px 4px 10px 0px hsl(0 0% 0% / 0.1),
-    0px 2px 4px -1px hsl(0 0% 0% / 0.1);
-  --shadow-lg: 0px 4px 10px 0px hsl(0 0% 0% / 0.1),
-    0px 4px 6px -1px hsl(0 0% 0% / 0.1);
-  --shadow-xl: 0px 4px 10px 0px hsl(0 0% 0% / 0.1),
-    0px 8px 10px -1px hsl(0 0% 0% / 0.1);
+  --shadow-sm:
+    0px 4px 10px 0px hsl(0 0% 0% / 0.1), 0px 1px 2px -1px hsl(0 0% 0% / 0.1);
+  --shadow:
+    0px 4px 10px 0px hsl(0 0% 0% / 0.1), 0px 1px 2px -1px hsl(0 0% 0% / 0.1);
+  --shadow-md:
+    0px 4px 10px 0px hsl(0 0% 0% / 0.1), 0px 2px 4px -1px hsl(0 0% 0% / 0.1);
+  --shadow-lg:
+    0px 4px 10px 0px hsl(0 0% 0% / 0.1), 0px 4px 6px -1px hsl(0 0% 0% / 0.1);
+  --shadow-xl:
+    0px 4px 10px 0px hsl(0 0% 0% / 0.1), 0px 8px 10px -1px hsl(0 0% 0% / 0.1);
   --shadow-2xl: 0px 4px 10px 0px hsl(0 0% 0% / 0.25);
   --tracking-normal: normal;
   --spacing: 0.25rem;
@@ -91,21 +93,23 @@
   --sidebar-border: oklch(0.2795 0.0368 260.031);
   --sidebar-ring: oklch(0.7106 0.1661 22.2162);
   --font-sans: Belanosima, ui-sans-serif, sans-serif, system-ui;
+  --font-luxurious-script:
+    Luxurious_Script, ui-sans-serif, sans-serif, system-ui;
   --font-serif: serif;
   --font-mono: monospace;
   --radius: 0.75rem;
   --shadow-2xs: 0px 5px 15px 0px hsl(0 0% 0% / 0.13);
   --shadow-xs: 0px 5px 15px 0px hsl(0 0% 0% / 0.13);
-  --shadow-sm: 0px 5px 15px 0px hsl(0 0% 0% / 0.25),
-    0px 1px 2px -1px hsl(0 0% 0% / 0.25);
-  --shadow: 0px 5px 15px 0px hsl(0 0% 0% / 0.25),
-    0px 1px 2px -1px hsl(0 0% 0% / 0.25);
-  --shadow-md: 0px 5px 15px 0px hsl(0 0% 0% / 0.25),
-    0px 2px 4px -1px hsl(0 0% 0% / 0.25);
-  --shadow-lg: 0px 5px 15px 0px hsl(0 0% 0% / 0.25),
-    0px 4px 6px -1px hsl(0 0% 0% / 0.25);
-  --shadow-xl: 0px 5px 15px 0px hsl(0 0% 0% / 0.25),
-    0px 8px 10px -1px hsl(0 0% 0% / 0.25);
+  --shadow-sm:
+    0px 5px 15px 0px hsl(0 0% 0% / 0.25), 0px 1px 2px -1px hsl(0 0% 0% / 0.25);
+  --shadow:
+    0px 5px 15px 0px hsl(0 0% 0% / 0.25), 0px 1px 2px -1px hsl(0 0% 0% / 0.25);
+  --shadow-md:
+    0px 5px 15px 0px hsl(0 0% 0% / 0.25), 0px 2px 4px -1px hsl(0 0% 0% / 0.25);
+  --shadow-lg:
+    0px 5px 15px 0px hsl(0 0% 0% / 0.25), 0px 4px 6px -1px hsl(0 0% 0% / 0.25);
+  --shadow-xl:
+    0px 5px 15px 0px hsl(0 0% 0% / 0.25), 0px 8px 10px -1px hsl(0 0% 0% / 0.25);
   --shadow-2xl: 0px 5px 15px 0px hsl(0 0% 0% / 0.63);
 }
 
@@ -144,6 +148,7 @@
   --color-sidebar-ring: var(--sidebar-ring);
 
   --font-sans: var(--font-sans);
+  --font-script: var(--font-luxurious-script);
   --font-mono: var(--font-mono);
   --font-serif: var(--font-serif);
 
@@ -179,5 +184,34 @@ body {
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+/* Curved text effect using SVG */
+.curved-text-container {
+  width: 100%;
+  max-width: 100%;
+  overflow: visible;
+}
+
+.curved-text-container svg {
+  overflow: visible;
+}
+
+.curved-text-container svg text {
+  font-family: var(--font-luxurious-script);
+  font-size: 6rem;
+  font-weight: normal;
+}
+
+/* Responsive text sizing - make text much larger on mobile */
+@media (max-width: 768px) {
+  .curved-text-container svg text {
+    font-size: 8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .curved-text-container svg text {
+    font-size: 6rem;
   }
 }
