@@ -13,18 +13,17 @@ export const CallToActionSection = () => {
           <Badge className="mb-4 bg-primary text-white px-4 py-2">
             Limited Time Offer
           </Badge>
-          <h2 className="text-5xl font-script text-primary mb-6">
+          <h2 className="text-5xl text-primary mb-6">
             Create Magic This Christmas
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
-            Don't let another Christmas pass without creating unforgettable
-            memories. Order your Santa letter today and watch your child's face
-            light up with wonder.
+            {`Don't let another Christmas pass without creating unforgettable
+            memories. Order your Santa letter today and watch faces
+            light up with wonder.`}
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 mb-12">
-          {/* Main CTA Card */}
+        {/* <div className="grid md:grid-cols-2 gap-8 mb-12">
           <Card className="border-2 border-primary shadow-xl">
             <CardContent className="p-8 text-center">
               <div className="mb-6">
@@ -62,8 +61,6 @@ export const CallToActionSection = () => {
               </div>
             </CardContent>
           </Card>
-
-          {/* Urgency Card */}
           <Card className="bg-gradient-to-br from-red-50 to-orange-50 border-red-200">
             <CardContent className="p-8">
               <div className="text-center mb-6">
@@ -110,7 +107,7 @@ export const CallToActionSection = () => {
               </div>
             </CardContent>
           </Card>
-        </div>
+        </div> */}
 
         {/* Additional Benefits */}
         <div className="grid md:grid-cols-3 gap-6 mb-8">
@@ -119,8 +116,8 @@ export const CallToActionSection = () => {
               <Star className="h-8 w-8 text-yellow-500 mx-auto mb-3" />
               <h3 className="font-semibold mb-2">Premium Quality</h3>
               <p className="text-sm text-muted-foreground">
-                High-quality materials and professional printing for lasting
-                memories
+                {`High-quality materials and professional printing for lasting
+                memories`}
               </p>
             </CardContent>
           </Card>
@@ -130,13 +127,13 @@ export const CallToActionSection = () => {
               <Heart className="h-8 w-8 text-red-500 mx-auto mb-3" />
               <h3 className="font-semibold mb-2">Made with Love</h3>
               <p className="text-sm text-muted-foreground">
-                Each letter is carefully crafted to create the perfect magical
-                experience
+                {`Each letter is carefully crafted to create the perfect magical
+                experience`}
               </p>
             </CardContent>
           </Card>
 
-          <Card className="text-center p-6">
+          {/* <Card className="text-center p-6">
             <CardContent>
               <Shield className="h-8 w-8 text-green-500 mx-auto mb-3" />
               <h3 className="font-semibold mb-2">Satisfaction Guarantee</h3>
@@ -145,15 +142,15 @@ export const CallToActionSection = () => {
                 questions asked
               </p>
             </CardContent>
-          </Card>
+          </Card> */}
         </div>
 
         {/* Final CTA */}
         <div className="text-center">
           <p className="text-lg text-muted-foreground mb-6">
-            Ready to create Christmas magic? Your child's wonder awaits.
+            {`Ready to create holiday magic? Christmas wonder awaits.`}
           </p>
-          <Button size="lg" variant="outline" className="text-lg px-8 py-3">
+          <Button size="lg" variant="default" className="text-lg px-8 py-3">
             Start Creating Magic
             <ArrowRight className="h-5 w-5 ml-2" />
           </Button>

@@ -18,7 +18,7 @@ export default function Home() {
       <TemplateShowcase />
       <PricingSection />
       <HowItWorks />
-      <TestimonialsSection />
+      {/* <TestimonialsSection /> */}
       <CallToActionSection />
       <Footer />
     </div>

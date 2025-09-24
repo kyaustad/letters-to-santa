@@ -61,12 +61,12 @@ export const TemplateShowcase = () => {
     <section className="w-full py-12 px-4 bg-muted/30">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-script text-primary mb-4">
-            Choose Your Perfect Template
+          <h2 className="text-4xl  text-primary mb-4">
+            {`Choose Your Perfect Template`}
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Select from our beautiful collection of letter and card templates,
-            each designed to create magical Christmas memories.
+            {`Select from our beautiful collection of letter and card templates,
+            each designed to create magical Christmas memories.`}
           </p>
         </div>
 
@@ -90,9 +90,10 @@ export const TemplateShowcase = () => {
                   </div>
 
                   {template.popular && (
-                    <Badge className="absolute top-2 right-2 bg-primary">
-                      Popular
-                    </Badge>
+                    <Badge
+                      variant="secondary"
+                      className="absolute top-2 right-2  "
+                    >{`Popular`}</Badge>
                   )}
 
                   <div className="p-4">
@@ -128,8 +129,8 @@ export const TemplateShowcase = () => {
 
         <div className="text-center">
           <p className="text-muted-foreground mb-4">
-            All templates can be fully customized with your child's name, age,
-            achievements, and personal message from Santa.
+            {`All templates can be fully customized with your child's name, age,
+            achievements, and personal message from Santa.`}
           </p>
           <Button variant="outline" size="lg">
             <Download className="h-4 w-4 mr-2" />

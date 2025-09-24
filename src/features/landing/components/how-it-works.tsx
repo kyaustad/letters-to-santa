@@ -12,14 +12,14 @@ export const HowItWorks = () => {
       title: "Choose Your Template",
       description:
         "Browse our collection of beautiful letter and card designs. Select the perfect template that matches your child's personality.",
-      details: "20+ templates available",
+      details: "7 templates available",
     },
     {
       step: 2,
       icon: Edit3,
       title: "Customize Your Message",
       description:
-        "Add your child's name, age, achievements, and any special details. Write a personalized message from Santa that will make their eyes light up.",
+        "Add your any special details. Write a personalized message from Santa that will make their eyes light up.",
       details: "Fully customizable content",
     },
     {
@@ -27,7 +27,7 @@ export const HowItWorks = () => {
       icon: Printer,
       title: "We Print & Prepare",
       description:
-        "Our team prints your letter on premium paper, adds the authentic North Pole postmark, and carefully packages it for mailing.",
+        "We print your letter on premium paper, adds the authentic North Pole postmark, and carefully packages it for mailing.",
       details: "High-quality materials",
     },
     {
@@ -43,8 +43,8 @@ export const HowItWorks = () => {
       icon: Truck,
       title: "Direct Delivery",
       description:
-        "We mail your letter directly to your child's address. You'll receive a tracking number so you know when it's delivered.",
-      details: "Tracked delivery included",
+        "We mail your letter directly to your address. You'll receive an email when the letter is stamped and mailed.",
+      details: "Shipped via USPS",
     },
   ];
 
@@ -52,12 +52,10 @@ export const HowItWorks = () => {
     <section className="w-full py-12 px-4 bg-gradient-to-br from-primary/5 to-secondary/5">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-script text-primary mb-4">
-            How It Works
-          </h2>
+          <h2 className="text-4xl text-primary mb-4">{`How It Works`}</h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Creating magical Santa letters is simple and stress-free. Follow
-            these easy steps to bring Christmas joy to your child.
+            {`Creating magical Santa letters is simple and stress-free. Follow
+            these easy steps to bring Christmas joy.`}
           </p>
         </div>
 
@@ -72,7 +70,7 @@ export const HowItWorks = () => {
                   <div className="p-4 bg-primary/10 rounded-full mx-auto w-fit">
                     <step.icon className="h-8 w-8 text-primary" />
                   </div>
-                  <Badge className="absolute -top-2 -right-2 bg-primary text-white">
+                  <Badge className="absolute -top-2 -right-2 bg-secondary text-white">
                     {step.step}
                   </Badge>
                 </div>
@@ -92,52 +90,53 @@ export const HowItWorks = () => {
         </div>
 
         {/* Timeline */}
-        <div className="bg-white/50 rounded-lg p-8 mb-8">
+        <div className="bg-muted/50 rounded-lg p-8 mb-8">
           <div className="flex items-center justify-center gap-8 mb-6">
             <div className="text-center">
               <Clock className="h-6 w-6 text-primary mx-auto mb-2" />
-              <p className="text-sm font-medium">Order Processing</p>
-              <p className="text-xs text-muted-foreground">1-2 business days</p>
+              <p className="text-sm font-medium">{`Order Processing`}</p>
+              <p className="text-xs text-muted-foreground">{`1-2 business days`}</p>
             </div>
             <div className="text-center">
               <Printer className="h-6 w-6 text-secondary mx-auto mb-2" />
-              <p className="text-sm font-medium">Printing & Postmark</p>
-              <p className="text-xs text-muted-foreground">2-3 business days</p>
+              <p className="text-sm font-medium">{`Printing & Postmark`}</p>
+              <p className="text-xs text-muted-foreground">{`2-3 business days`}</p>
             </div>
             <div className="text-center">
               <Truck className="h-6 w-6 text-accent mx-auto mb-2" />
-              <p className="text-sm font-medium">Delivery</p>
-              <p className="text-xs text-muted-foreground">3-7 business days</p>
+              <p className="text-sm font-medium">{`Delivery`}</p>
+              <p className="text-xs text-muted-foreground">{`USPS Depending on location`}</p>
             </div>
           </div>
 
           <div className="text-center">
             <p className="text-sm text-muted-foreground">
-              <strong>Total time:</strong> 6-12 business days from order to
-              delivery
+              <strong>{`Total time:`}</strong>{" "}
+              {`6-12 business days from order to
+              delivery `}
             </p>
             <p className="text-xs text-primary mt-1">
-              Order by December 15th for guaranteed Christmas delivery
+              {`Order by December 1st for Christmas delivery`}
             </p>
           </div>
         </div>
 
         {/* FAQ Preview */}
         <div className="text-center">
-          <h3 className="text-xl font-semibold mb-4">Have Questions?</h3>
+          <h3 className="text-xl font-semibold mb-4">{`Have Questions?`}</h3>
           <p className="text-muted-foreground mb-4">
-            Check out our frequently asked questions or contact our support
-            team.
+            {`Check out our frequently asked questions or contact our support
+            team.`}
           </p>
-          <div className="flex gap-4 justify-center">
+          <div className="flex gap-4 justify-center flex-col md:flex-row items-center">
             <Badge variant="outline" className="px-4 py-2">
-              Can I order multiple letters?
+              {`Can I order multiple letters?`}
             </Badge>
             <Badge variant="outline" className="px-4 py-2">
-              When should I order?
+              {`When should I order?`}
             </Badge>
             <Badge variant="outline" className="px-4 py-2">
-              Is the postmark real?
+              {`Is the postmark real?`}
             </Badge>
           </div>
         </div>

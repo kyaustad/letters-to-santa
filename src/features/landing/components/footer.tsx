@@ -11,59 +11,56 @@ export const Footer = () => {
         <div className="grid md:grid-cols-4 gap-8 mb-8">
           {/* Company Info */}
           <div className="space-y-4">
-            <h3 className="text-2xl font-script text-primary">
-              Letters From Santa
-            </h3>
+            <h3 className="text-2xl text-primary">{`Letters From Santa`}</h3>
             <p className="text-sm text-muted-foreground">
-              Creating magical Christmas memories with authentic Santa letters
-              postmarked from North Pole, Alaska since 2019.
+              {`Creating magical Christmas memories since 2025.`}
             </p>
             <div className="flex gap-2">
               <Badge variant="outline" className="text-xs">
                 <Shield className="h-3 w-3 mr-1" />
-                Secure
+                {`Secure`}
               </Badge>
               <Badge variant="outline" className="text-xs">
                 <Heart className="h-3 w-3 mr-1" />
-                Trusted
+                {`Trusted`}
               </Badge>
             </div>
           </div>
 
           {/* Quick Links */}
           <div className="space-y-4">
-            <h4 className="font-semibold">Quick Links</h4>
+            <h4 className="font-semibold">{`Quick Links`}</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li>
                 <a href="#" className="hover:text-primary transition-colors">
-                  Order Now
+                  {`Order Now`}
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-primary transition-colors">
-                  Templates
+                  {`Templates`}
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-primary transition-colors">
-                  How It Works
+                  {`How It Works`}
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-primary transition-colors">
-                  FAQ
+                  {`FAQ`}
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-primary transition-colors">
-                  Contact Us
+                  {`Contact Us`}
                 </a>
               </li>
             </ul>
           </div>
 
           {/* Customer Service */}
-          <div className="space-y-4">
+          {/* <div className="space-y-4">
             <h4 className="font-semibold">Customer Service</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li>
@@ -92,27 +89,24 @@ export const Footer = () => {
                 </a>
               </li>
             </ul>
-          </div>
+          </div> */}
 
           {/* Contact Info */}
           <div className="space-y-4">
-            <h4 className="font-semibold">Contact Us</h4>
+            <h4 className="font-semibold">{`Contact Us`}</h4>
             <div className="space-y-3 text-sm text-muted-foreground">
               <div className="flex items-center gap-2">
                 <Mail className="h-4 w-4" />
-                <span>support@lettersfromsanta.com</span>
+                <span>{`support@lettersfromsanta.com`}</span>
               </div>
-              <div className="flex items-center gap-2">
-                <Phone className="h-4 w-4" />
-                <span>1-800-SANTA-1</span>
-              </div>
+
               <div className="flex items-center gap-2">
                 <MapPin className="h-4 w-4" />
-                <span>North Pole, Alaska</span>
+                <span>{`North Pole, Alaska`}</span>
               </div>
               <div className="flex items-center gap-2">
                 <Clock className="h-4 w-4" />
-                <span>Mon-Fri 9AM-6PM EST</span>
+                <span>{`Mon-Fri 9AM-6PM EST`}</span>
               </div>
             </div>
           </div>
@@ -122,10 +116,10 @@ export const Footer = () => {
 
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="text-sm text-muted-foreground">
-            © 2024 Letters From Santa. All rights reserved.
+            {` © 2025 Letters From Santa. All rights reserved.`}
           </div>
           <div className="flex gap-4 text-sm text-muted-foreground">
-            <span>Made with ❤️ for Christmas magic</span>
+            <span>{`Made with ❤️ for Christmas magic`}</span>
           </div>
         </div>
 
@@ -134,19 +128,19 @@ export const Footer = () => {
           <div className="flex flex-wrap justify-center gap-6 text-xs text-muted-foreground">
             <div className="flex items-center gap-2">
               <Shield className="h-4 w-4 text-green-600" />
-              <span>SSL Secured</span>
+              <span>{`SSL Secured`}</span>
             </div>
             <div className="flex items-center gap-2">
               <Heart className="h-4 w-4 text-red-600" />
-              <span>100% Satisfaction</span>
+              <span>{`100% Satisfaction`}</span>
             </div>
             <div className="flex items-center gap-2">
               <Clock className="h-4 w-4 text-blue-600" />
-              <span>Fast Delivery</span>
+              <span>{`Fast Processing`}</span>
             </div>
             <div className="flex items-center gap-2">
               <MapPin className="h-4 w-4 text-primary" />
-              <span>Real North Pole Postmark</span>
+              <span>{`Real North Pole Postmark`}</span>
             </div>
           </div>
         </div>
