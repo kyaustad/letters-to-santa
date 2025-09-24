@@ -11,7 +11,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
       <NavBar />
       <main
         id="page-container"
-        className="w-full h-full flex flex-col items-center p-8 max-w-screen-lg mx-auto"
+        className="w-full h-full flex flex-col items-center p-4 max-w-screen-2xl mx-auto pt-20 lg:pt-4 overflow-x-hidden"
       >
         {children}
       </main>

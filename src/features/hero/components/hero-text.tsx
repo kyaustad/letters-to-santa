@@ -6,7 +6,9 @@ export const HeroText = () => {
   const isMobile = useIsMobile();
 
   if (isMobile) {
-    return <h1 className="text-4xl font-script">Letters From Santa</h1>;
+    return (
+      <h1 className="text-4xl font-script text-primary">Letters From Santa</h1>
+    );
   }
 
   return (
@@ -20,7 +22,7 @@ export const HeroText = () => {
               fill="transparent"
             />
           </defs>
-          <text className="font-script fill-current">
+          <text className="font-script fill-primary">
             <textPath href="#curve" startOffset="50%" textAnchor="middle">
               Letters From Santa
             </textPath>
