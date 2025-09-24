@@ -78,7 +78,7 @@ export const ServiceDescription = () => {
             Perfect for Grandparents & Parents
           </Badge> */}
           {/* recreate badge as a div with the same style */}
-          <div className="bg-secondary/85 rounded-lg p-4 text-center my-4 text-lg">
+          <div className="bg-secondary/85 rounded-lg p-4 text-center my-4 text-lg max-w-lg mx-auto">
             <p>{`Perfect for Grandparents & Parents`}</p>
           </div>
           <h3 className="text-2xl font-semibold mb-4">
