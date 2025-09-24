@@ -129,8 +129,7 @@ export const TemplateShowcase = () => {
 
         <div className="text-center">
           <p className="text-muted-foreground mb-4">
-            {`All templates can be fully customized with your child's name, age,
-            achievements, and personal message from Santa.`}
+            {`All templates can be fully customized with your desired name, age, and personal message from Santa.`}
           </p>
           <Button variant="outline" size="lg">
             <Download className="h-4 w-4 mr-2" />
