@@ -110,11 +110,11 @@ export const CallToActionSection = () => {
         </div> */}
 
         {/* Additional Benefits */}
-        <div className="grid md:grid-cols-3 gap-6 mb-8">
+        <div className="grid md:grid-cols-2 gap-6 mb-8">
           <Card className="text-center p-6">
             <CardContent>
               <Star className="h-8 w-8 text-yellow-500 mx-auto mb-3" />
-              <h3 className="font-semibold mb-2">Premium Quality</h3>
+              <h3 className="font-semibold mb-2">{`Premium Quality`}</h3>
               <p className="text-sm text-muted-foreground">
                 {`High-quality materials and professional printing for lasting
                 memories`}
@@ -125,7 +125,7 @@ export const CallToActionSection = () => {
           <Card className="text-center p-6">
             <CardContent>
               <Heart className="h-8 w-8 text-red-500 mx-auto mb-3" />
-              <h3 className="font-semibold mb-2">Made with Love</h3>
+              <h3 className="font-semibold mb-2">{`Made with Love`}</h3>
               <p className="text-sm text-muted-foreground">
                 {`Each letter is carefully crafted to create the perfect magical
                 experience`}
