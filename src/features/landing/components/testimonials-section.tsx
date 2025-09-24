@@ -74,11 +74,11 @@ export const TestimonialsSection = () => {
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
           <h2 className="text-4xl font-script text-primary mb-4">
-            What Our Customers Say
+            {`What Our Customers Say`}
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Join thousands of happy families who have created magical Christmas
-            memories with our Santa letter service.
+            {`Join thousands of happy families who have created magical Christmas
+            memories with our Santa letter service.`}
           </p>
         </div>
 
@@ -140,32 +140,32 @@ export const TestimonialsSection = () => {
           <Card className="text-center p-6">
             <CardContent>
               <div className="text-3xl font-bold text-primary mb-2">
-                10,000+
+                {`  10,000+`}
               </div>
-              <p className="text-sm text-muted-foreground">Happy Families</p>
+              <p className="text-sm text-muted-foreground">{`Happy Families`}</p>
             </CardContent>
           </Card>
 
           <Card className="text-center p-6">
             <CardContent>
               <div className="text-3xl font-bold text-primary mb-2">4.9/5</div>
-              <p className="text-sm text-muted-foreground">Average Rating</p>
+              <p className="text-sm text-muted-foreground">{`Average Rating`}</p>
             </CardContent>
           </Card>
 
           <Card className="text-center p-6">
             <CardContent>
               <div className="text-3xl font-bold text-primary mb-2">98%</div>
-              <p className="text-sm text-muted-foreground">Satisfaction Rate</p>
+              <p className="text-sm text-muted-foreground">{`Satisfaction Rate`}</p>
             </CardContent>
           </Card>
 
           <Card className="text-center p-6">
             <CardContent>
               <div className="text-3xl font-bold text-primary mb-2">
-                5 Years
+                {`5 Years`}
               </div>
-              <p className="text-sm text-muted-foreground">Creating Magic</p>
+              <p className="text-sm text-muted-foreground">{`Creating Magic`}</p>
             </CardContent>
           </Card>
         </div>
@@ -173,13 +173,13 @@ export const TestimonialsSection = () => {
         {/* Trust Indicators */}
         <div className="text-center bg-muted/30 rounded-lg p-6">
           <h3 className="text-lg font-semibold mb-4">
-            Trusted by Families Nationwide
+            {`Trusted by Families Nationwide`}
           </h3>
           <div className="flex flex-wrap justify-center gap-4 text-sm text-muted-foreground">
-            <span>✓ Secure Payment Processing</span>
+            {/* <span>✓ Secure Payment Processing</span>
             <span>✓ Privacy Protected</span>
             <span>✓ Money-Back Guarantee</span>
-            <span>✓ Customer Support</span>
+            <span>✓ Customer Support</span> */}
           </div>
         </div>
       </div>
