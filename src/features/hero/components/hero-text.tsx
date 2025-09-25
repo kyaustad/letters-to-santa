@@ -3,7 +3,11 @@
 import Image from "next/image";
 import { useIsMobile } from "@/hooks/use-mobile";
 
-export const HeroText = () => {
+export const HeroText = ({
+  title = "Letters From Santa",
+}: {
+  title: string;
+}) => {
   const isMobile = useIsMobile();
 
   if (isMobile) {
@@ -17,9 +21,7 @@ export const HeroText = () => {
           className="p-0 m-0"
           priority
         />
-        <h1 className="text-5xl font-script text-primary">
-          Letters From Santa
-        </h1>
+        <h1 className="text-5xl font-script text-primary">{title}</h1>
       </div>
     );
   }
@@ -45,7 +47,7 @@ export const HeroText = () => {
           </defs>
           <text className="font-script fill-primary">
             <textPath href="#curve" startOffset="50%" textAnchor="middle">
-              Letters From Santa
+              {title}
             </textPath>
           </text>
         </svg>

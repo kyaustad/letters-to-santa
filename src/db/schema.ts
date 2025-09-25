@@ -1,4 +1,11 @@
-import { integer, pgTable, text, timestamp } from "drizzle-orm/pg-core";
+import {
+  integer,
+  pgTable,
+  text,
+  timestamp,
+  real,
+  jsonb,
+} from "drizzle-orm/pg-core";
 
 export const orders = pgTable("orders", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
@@ -15,4 +22,9 @@ export const orders = pgTable("orders", {
   country: text().notNull(),
   phone: text().notNull(),
   shippedAt: timestamp(),
+  total: real().notNull(),
+  products: jsonb().notNull(),
 });
+
+export type Order = typeof orders.$inferSelect;
+export type NewOrder = typeof orders.$inferInsert;
