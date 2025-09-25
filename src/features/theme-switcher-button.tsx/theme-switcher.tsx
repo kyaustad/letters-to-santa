@@ -21,7 +21,6 @@ export function ThemeSwitcher({ className }: { className?: string }) {
       onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
       className={cn("transition-all duration-500", className)}
     >
-      {!mounted && <Loader2 className="size-4 animate-spin" />}
       {mounted && theme === "dark" ? (
         <SunIcon className="size-5" />
       ) : (
