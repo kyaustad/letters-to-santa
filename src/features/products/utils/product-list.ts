@@ -122,6 +122,7 @@ export type InProgressProductWithProduct = Omit<
   "productId"
 > & {
   product: Product;
+  actuallyPaid?: number;
 };
 
 export type InProgressOrder = {

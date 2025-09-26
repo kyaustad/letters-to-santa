@@ -19,7 +19,7 @@ export default function PaymentSuccess() {
 
   const processOrder = async () => {
     if (redirectStatus === "succeeded" && paymentIntent) {
-      if (!cartWithProducts) {
+      if (!cartWithProducts || !cart) {
         return;
       }
       const success = await successfulOrderActions(
@@ -28,6 +28,7 @@ export default function PaymentSuccess() {
       );
       if (success) {
         toast.success("Order Placed!");
+        clearCart(false);
       } else {
         toast.error("Failed to validate order.");
       }
@@ -64,7 +65,7 @@ export default function PaymentSuccess() {
       <p className="text-xl">{`An email confirmation has been sent to your email address you provided.`}</p>
       <p className="text-xl">
         {`You will receive order updates via email and can check the status of your orders any time from the `}{" "}
-        <a href="/orders" className="text-primary">
+        <a href="/check-order" className="text-primary">
           Check an Order
         </a>{" "}
         {` page.`}
@@ -73,7 +74,7 @@ export default function PaymentSuccess() {
         <a href="/shop" className="text-primary">
           <Button variant="secondary">Back to the Shop</Button>
         </a>
-        <a href="/orders" className="text-primary">
+        <a href="/check-order" className="text-primary">
           <Button variant="default">Check an Order</Button>
         </a>
       </div>

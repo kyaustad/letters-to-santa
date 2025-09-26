@@ -24,34 +24,36 @@ export function generateOrderItemsHTML(
     .map(
       (item, index) => `
     <div style="background-color: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 20px; margin: 10px 0;">
-      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; gap: 20px;">
-        <div style="flex: 1;">
-          <h4 style="color: #1f2937; font-size: 16px; font-weight: 600; font-family: 'Belanosima', Arial, sans-serif; margin: 0;">
-            ${item.product.name}
-          </h4>
-        </div>
-        <div style="text-align: right; min-width: 120px;">
-          ${
-            item.savings && item.savings > 0
-              ? `
-            <p style="color: #6b7280; font-size: 12px; text-decoration: line-through; margin: 0; font-family: Arial, sans-serif;">
-              $${item.originalPrice?.toFixed(2) || item.product.price.toFixed(2)}
-            </p>
-            <p style="color: #dc2626; font-size: 16px; font-weight: 600; margin: 0; font-family: Arial, sans-serif;">
-              $${item.discountedPrice?.toFixed(2) || item.product.price.toFixed(2)}
-            </p>
-            <span style="background-color: #fef2f2; color: #dc2626; font-size: 10px; padding: 2px 6px; border-radius: 4px; font-family: Arial, sans-serif;">
-              ${item.discountType === "percentage" ? "15% off" : item.discountType === "addon" ? "Addon price" : "Discounted"}
-            </span>
-          `
-              : `
-            <p style="color: #1f2937; font-size: 16px; font-weight: 600; margin: 0; font-family: Arial, sans-serif;">
-              $${item.product.price.toFixed(2)}
-            </p>
-          `
-          }
-        </div>
-      </div>
+      <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom: 15px;">
+        <tr>
+          <td style="vertical-align: top; padding-right: 20px;">
+            <h4 style="color: #1f2937; font-size: 16px; font-weight: 600; font-family: 'Belanosima', Arial, sans-serif; margin: 0;">
+              ${item.product.name}
+            </h4>
+          </td>
+          <td style="vertical-align: top; text-align: right; width: 120px;">
+            ${
+              item.savings && item.savings > 0
+                ? `
+              <p style="color: #6b7280; font-size: 12px; text-decoration: line-through; margin: 0; font-family: Arial, sans-serif;">
+                $${item.originalPrice?.toFixed(2) || item.product.price.toFixed(2)}
+              </p>
+              <p style="color: #dc2626; font-size: 16px; font-weight: 600; margin: 0; font-family: Arial, sans-serif;">
+                $${item.discountedPrice?.toFixed(2) || item.product.price.toFixed(2)}
+              </p>
+              <span style="background-color: #fef2f2; color: #dc2626; font-size: 10px; padding: 2px 6px; border-radius: 4px; font-family: Arial, sans-serif;">
+                ${item.discountType === "percentage" ? "15% off" : item.discountType === "addon" ? "Addon price" : "Discounted"}
+              </span>
+            `
+                : `
+              <p style="color: #1f2937; font-size: 16px; font-weight: 600; margin: 0; font-family: Arial, sans-serif;">
+                $${item.product.price.toFixed(2)}
+              </p>
+            `
+            }
+          </td>
+        </tr>
+      </table>
       
       <div style="background-color: #f9fafb; border-radius: 6px; padding: 15px; margin: 10px 0;">
         <p style="color: #374151; font-size: 14px; font-family: Arial, sans-serif; margin: 5px 0;">
@@ -213,6 +215,17 @@ export const EMAIL_TEMPLATES = {
                         </p>
                         <p
                           style="
+                            color: #374151;
+                            font-size: 16px;
+                            font-family: Arial, sans-serif;
+                            margin: 0 0 10px 0;
+                            text-align: center;
+                          "
+                        >
+                          <strong>Payment ID:</strong> %%PAYMENT_ID%%
+                        </p>
+                        <p
+                          style="
                             color: #6b7280;
                             font-size: 14px;
                             font-family: Arial, sans-serif;
@@ -223,9 +236,49 @@ export const EMAIL_TEMPLATES = {
                           Order Date: %%ORDER_DATE%%
                         </p>
                       </div>
+                      <div style="background-color: #f9fafb; border-radius: 8px; padding: 20px; margin: 20px 0;">
+                        <table width="100%" cellpadding="0" cellspacing="0">
+                          <tr>
+                            <td style="text-align: center; padding-bottom: 15px;">
+                              <p
+                                style="
+                                  color: #374151;
+                                  font-size: 16px;
+                                  font-family: Arial, sans-serif;
+                                  margin: 0;
+                                  text-align: center;
+                                "
+                              >
+                                You can use the button below to check on the status of your order.
+                              </p>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td style="text-align: center;">
+                              <a
+                                href="%%BASE_URL%%/check-order?payment_intent=%%PAYMENT_ID%%"
+                                style="
+                                  color: #ffffff;
+                                  font-size: 18px;
+                                  font-weight: 600;
+                                  font-family: Arial, sans-serif;
+                                  text-align: center;
+                                  background-color: #dc2626;
+                                  padding: 12px 24px;
+                                  border-radius: 5px;
+                                  text-decoration: none;
+                                  display: inline-block;
+                                "
+                              >
+                                Check Order Status
+                              </a>
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
 
                       <!-- Customer Information -->
-                      <div style="background-color: #fef7f7; border-left: 4px solid #dc2626; padding: 20px; margin: 20px 0;">
+                      <div style="background-color: #F7FEF7; border-left: 4px solid #108D00; padding: 20px; margin: 20px 0;">
                         <h3
                           style="
                             color: #1f2937;

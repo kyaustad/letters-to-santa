@@ -17,14 +17,14 @@ export const CartContext = createContext<{
   cartWithProducts: InProgressOrderWithProducts | null;
   addToCart: (product: InProgressProduct) => Promise<boolean>;
   removeFromCart: (product: InProgressProduct) => boolean;
-  clearCart: () => void;
+  clearCart: (withToast?: boolean) => void;
   updateCart: (product: InProgressProduct) => boolean;
 }>({
   cart: null,
   cartWithProducts: null,
   addToCart: () => Promise.resolve(false),
   removeFromCart: () => false,
-  clearCart: () => {},
+  clearCart: (withToast?: boolean) => {},
   updateCart: () => false,
 });
 
@@ -92,11 +92,14 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     return true;
   };
 
-  const clearCart = () => {
+  const clearCart = (withToast: boolean = true) => {
     setCart(null);
     setCartWithProducts(null);
     localStorage.removeItem("cart");
-    toast.success("Cart Cleared!");
+    localStorage.removeItem("cartWithProducts");
+    if (withToast) {
+      toast.success("Cart Cleared!");
+    }
   };
 
   const getExistingCart = async () => {

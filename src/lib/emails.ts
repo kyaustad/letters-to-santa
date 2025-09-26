@@ -65,6 +65,7 @@ export const sendOrderConfirmationEmail = async (order: Order) => {
     const emailContent = EMAIL_TEMPLATES.orderConfirmation
       .replace(/%%BASE_URL%%/g, env.NEXT_PUBLIC_BASE_URL)
       .replace(/%%ORDER_NUMBER%%/g, order.id.toString())
+      .replace(/%%PAYMENT_ID%%/g, order.paymentIntentId)
       .replace(
         /%%ORDER_DATE%%/g,
         order.createdAt.toLocaleDateString("en-US", {
