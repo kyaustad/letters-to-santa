@@ -14,27 +14,51 @@ import { createPaymentIntent } from "../actions";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 
-export const StripeDemo = () => {
-  const AMOUNT = 49.99;
+export const StripeDemo = ({
+  amount,
+  customerName,
+  customerEmail,
+  customerPhone,
+}: {
+  amount: number;
+  customerName: string;
+  customerEmail: string;
+  customerPhone: string;
+}) => {
   const stripePromise = loadStripe(env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
 
   return (
-    <main className="max-w-6xl mx-auto p-10 text-white text-center border m-10 rounded-lg bg-gradient-to-tr from-blue-500 to-purple-500 w-full">
+    <main className="max-w-6xl mx-auto p-10 text-white text-center border m-4 rounded-lg bg-card h-full w-full">
       <Elements
         stripe={stripePromise}
         options={{
           mode: "payment",
-          amount: convertToSubcurrency(AMOUNT),
+          amount: convertToSubcurrency(amount),
           currency: "usd",
         }}
       >
-        <CheckoutForm amount={AMOUNT} />
+        <CheckoutForm
+          amount={amount}
+          customerName={customerName}
+          customerEmail={customerEmail}
+          customerPhone={customerPhone}
+        />
       </Elements>
     </main>
   );
 };
 
-const CheckoutForm = ({ amount }: { amount: number }) => {
+const CheckoutForm = ({
+  amount,
+  customerName,
+  customerEmail,
+  customerPhone,
+}: {
+  amount: number;
+  customerName: string;
+  customerEmail: string;
+  customerPhone: string;
+}) => {
   const stripe = useStripe();
   const elements = useElements();
 
@@ -47,6 +71,9 @@ const CheckoutForm = ({ amount }: { amount: number }) => {
     try {
       const secret = await createPaymentIntent({
         amount: convertToSubcurrency(amount),
+        customerName,
+        customerEmail,
+        customerPhone,
       });
       setClientSecret(secret);
     } catch (error) {
@@ -59,7 +86,7 @@ const CheckoutForm = ({ amount }: { amount: number }) => {
 
   useEffect(() => {
     getClientSecret();
-  }, [amount]);
+  }, [amount, customerName, customerEmail, customerPhone]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -104,7 +131,7 @@ const CheckoutForm = ({ amount }: { amount: number }) => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="w-full space-y-8 bg-white p-4 rounded-lg"
+      className="w-full space-y-8 bg-white p-4 rounded-lg h-full"
     >
       {clientSecret && <PaymentElement />}
       {error && <p className="text-red-500">{error}</p>}

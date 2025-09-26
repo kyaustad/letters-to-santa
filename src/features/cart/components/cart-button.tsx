@@ -7,6 +7,7 @@ import {
   ShoppingCartIcon,
   SquarePenIcon,
   TrashIcon,
+  CircleCheckIcon,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
@@ -43,57 +44,79 @@ import {
 } from "@/components/ui/dialog";
 import { EditProductOrderDetailsForm } from "@/features/products/components/product-order-details-form";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { usePathname } from "next/navigation";
 
 export const CartButton = () => {
   const { cart, cartWithProducts, clearCart } = useCart();
   const [isOpen, setIsOpen] = useState(false);
   const isMobile = useIsMobile();
   const router = useRouter();
-  if (!cart) return null;
+  const pathname = usePathname();
+  const [isUpsellOpen, setIsUpsellOpen] = useState(false);
+  if (!cart || pathname === "/checkout") return null;
+
+  const handleCheckoutClicked = () => {
+    if (cart && cart.products.length < 4) {
+      setIsUpsellOpen(true);
+    } else {
+      router.push("/checkout");
+    }
+  };
   return (
-    <Popover open={isOpen} onOpenChange={setIsOpen}>
-      <PopoverTrigger asChild>
-        <Button
-          variant="accent"
-          size="lg"
-          className={cn(
-            "fixed z-50 aspect-square min-w-12 min-h-12 bottom-8 right-8 shadow-xl",
-            isMobile && "bottom-2 right-2",
-          )}
+    <>
+      <Popover open={isOpen} onOpenChange={setIsOpen}>
+        <PopoverTrigger asChild>
+          <Button
+            variant="accent"
+            size="lg"
+            className={cn(
+              "fixed z-50 aspect-square min-w-12 min-h-12 bottom-8 right-8 shadow-xl",
+              isMobile && "bottom-2 right-2",
+            )}
+          >
+            <ShoppingCartIcon className="size-6  dark:text-gray-950" />
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent
+          className="w-80 max-h-152 overflow-y-auto border-4 shadow-xl bg-popover/90 backdrop-blur-sm p-2 min-h-152 flex flex-col"
+          align="end"
         >
-          <ShoppingCartIcon className="size-6  dark:text-gray-950" />
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent
-        className="w-80 max-h-152 overflow-y-auto border-4 shadow-xl bg-popover/90 backdrop-blur-sm p-2 min-h-152 flex flex-col"
-        align="end"
-      >
-        <div className="flex flex-col flex-1 gap-2 h-full overflow-y-auto scrollbar-hide">
-          {cart &&
-            cartWithProducts &&
-            cartWithProducts.products.map((product) => (
-              <CartItem key={product.id} product={product} />
-            ))}
-        </div>
-        <div className="flex flex-col gap-2 sticky bottom-0">
-          <div className="flex flex-col gap-0 items-end w-full justify-between sticky bottom-0 border-t border-border pt-2 ">
-            <p className="text-lg text-foreground  text-right w-full">{`Total: $${cartWithProducts?.total.toFixed(2)}`}</p>
-            <p className="text-xs text-muted-foreground  text-right w-full">{`Items: ${cartWithProducts?.products.length}`}</p>
-            <p className="text-xs text-muted-foreground  text-right w-full">{`Bundle Discounts Applied at Checkout`}</p>
+          <div className="flex flex-col flex-1 gap-2 h-full overflow-y-auto scrollbar-hide">
+            {cart &&
+              cartWithProducts &&
+              cartWithProducts.products.map((product) => (
+                <CartItem key={product.id} product={product} />
+              ))}
           </div>
-          <div className="flex flex-row gap-2 items-center w-full justify-between  pt-2 ">
-            <Button variant="destructive" size="lg" onClick={clearCart}>
-              <TrashIcon className="size-4" />
-              {`Clear Cart`}
-            </Button>
-            <Button variant="secondary" size="lg">
-              <ShoppingCartIcon className="size-4" />
-              {`Checkout`}
-            </Button>
+          <div className="flex flex-col gap-2 sticky bottom-0">
+            <div className="flex flex-col gap-0 items-end w-full justify-between sticky bottom-0 border-t border-border pt-2 ">
+              <p className="text-lg text-foreground  text-right w-full">{`Total: $${cartWithProducts?.total.toFixed(2)}`}</p>
+              <p className="text-xs text-muted-foreground  text-right w-full">{`Items: ${cartWithProducts?.products.length}`}</p>
+              <p className="text-xs text-muted-foreground  text-right w-full">{`Bundle Discounts Applied at Checkout`}</p>
+            </div>
+            <div className="flex flex-row gap-2 items-center w-full justify-between  pt-2 ">
+              <Button
+                variant="destructive"
+                size="lg"
+                onClick={() => clearCart()}
+              >
+                <TrashIcon className="size-4" />
+                {`Clear Cart`}
+              </Button>
+              <Button
+                variant="secondary"
+                size="lg"
+                onClick={handleCheckoutClicked}
+              >
+                <ShoppingCartIcon className="size-4" />
+                {`Checkout`}
+              </Button>
+            </div>
           </div>
-        </div>
-      </PopoverContent>
-    </Popover>
+        </PopoverContent>
+      </Popover>
+      <UpsellAlert open={isUpsellOpen} onOpenChange={setIsUpsellOpen} />
+    </>
   );
 };
 
@@ -140,7 +163,78 @@ function CartItem({ product }: { product: InProgressProductWithProduct }) {
   );
 }
 
-function ConfirmRemoveAlert({
+export function UpsellAlert({
+  open,
+  onOpenChange,
+}: {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+}) {
+  const router = useRouter();
+  return (
+    <AlertDialog open={open} onOpenChange={onOpenChange}>
+      <AlertDialogContent className="max-h-[80vh] overflow-y-auto scrollbar-hide">
+        <AlertDialogHeader>
+          <AlertDialogTitle className="text-center text-2xl font-light text-foreground">{`Are you sure you want to checkout already?`}</AlertDialogTitle>
+        </AlertDialogHeader>
+        <AlertDialogDescription className="text-center text-lg text-foreground">{`You can add more items to your cart to get a discount!`}</AlertDialogDescription>
+        <div className="flex flex-col gap-2 w-full items-center h-full">
+          <div className="w-full p-4 bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800 rounded-lg">
+            <h2 className="text-lg font-semibold text-blue-800 dark:text-blue-200 mb-2">
+              {`Bundle Discount Information`}
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-blue-700 dark:text-blue-300">
+              <ul className="flex flex-col gap-1 list-disc">
+                <li className="ml-4">
+                  <span className="font-medium">{`1 item:`}</span>
+                  {` $9.89 (no discount)`}
+                </li>
+                <li className="ml-4">
+                  <span className="font-medium">{`2 items:`}</span>
+                  {` 10% off all items`}
+                </li>
+                <li className="ml-4">
+                  <span className="font-medium">{`3 items:`}</span>
+                  {` 15% off all items`}
+                </li>
+              </ul>
+              <ul className="flex flex-col gap-1 list-disc">
+                <li className="ml-4">
+                  <span className="font-medium">{`4+ items:`}</span>
+                  {` First 3 items get
+              15% off`}
+                </li>
+                <li className="ml-4">
+                  <span className="font-medium">{`Additional items:`}</span>
+                  {` $7.89 each
+              (addon price)`}
+                </li>
+                {/* <p className="ml-2 text-xs text-blue-600 dark:text-blue-400 mt-2">
+                  {`*All prices shown include applicable discounts`}
+                </p> */}
+              </ul>
+            </div>
+          </div>
+        </div>
+        <AlertDialogFooter>
+          <AlertDialogCancel variant="secondary" className="bg-secondary">
+            <ShoppingCartIcon className="size-4" />
+            {`Continue Shopping`}
+          </AlertDialogCancel>
+          <AlertDialogAction
+            className="secondary"
+            onClick={() => router.push("/checkout")}
+          >
+            <CircleCheckIcon className="size-4" />
+            {`Checkout`}
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
+  );
+}
+
+export function ConfirmRemoveAlert({
   product,
   children,
 }: {
@@ -151,7 +245,7 @@ function ConfirmRemoveAlert({
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>{children}</AlertDialogTrigger>
-      <AlertDialogContent className="max-h-[90vh] overflow-y-auto scrollbar-hide">
+      <AlertDialogContent className="max-h-[80vh] overflow-y-auto scrollbar-hide">
         <AlertDialogHeader>
           <AlertDialogTitle>{`Remove ${product.product.name}`}</AlertDialogTitle>
         </AlertDialogHeader>
@@ -206,7 +300,7 @@ function ConfirmRemoveAlert({
   );
 }
 
-function EditItemDialog({
+export function EditItemDialog({
   product,
   children,
 }: {
@@ -217,7 +311,7 @@ function EditItemDialog({
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent>
+      <DialogContent className="max-h-[80vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>{`Edit ${product.product.name}`}</DialogTitle>
           <DialogDescription>{`Edit the details of ${product.product.name} in your cart`}</DialogDescription>

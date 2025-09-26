@@ -5,25 +5,28 @@ import {
   timestamp,
   real,
   jsonb,
+  pgEnum,
 } from "drizzle-orm/pg-core";
+
+export const orderStatus = pgEnum("order_status", [
+  "pending",
+  "shipped",
+  "completed",
+  "cancelled",
+]);
 
 export const orders = pgTable("orders", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   name: text().notNull(),
   email: text().notNull(),
-  message: text().notNull(),
+  phone: text().notNull(),
   createdAt: timestamp().notNull().defaultNow(),
   updatedAt: timestamp().notNull().defaultNow(),
-  status: text().notNull().default("pending"),
-  address: text().notNull(),
-  city: text().notNull(),
-  state: text().notNull(),
-  zip: text().notNull(),
-  country: text().notNull(),
-  phone: text().notNull(),
+  status: orderStatus().notNull().default("pending"),
   shippedAt: timestamp(),
   total: real().notNull(),
   products: jsonb().notNull(),
+  paymentIntentId: text().notNull(),
 });
 
 export type Order = typeof orders.$inferSelect;

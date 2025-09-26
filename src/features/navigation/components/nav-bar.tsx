@@ -66,7 +66,7 @@ export const NavBar = () => {
                 key={`mobile-link-${idx}`}
                 href={item.link}
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="relative text-neutral-600 dark:text-neutral-300"
+                className="relative text-neutral-600 dark:text-neutral-300 cursor-pointer"
               >
                 <span
                   className={cn(
@@ -78,14 +78,22 @@ export const NavBar = () => {
                 </span>
               </a>
             ))}
+            <a
+              key={`mobile-link-check-order`}
+              href="/check-order"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="relative text-neutral-600 dark:text-neutral-300 cursor-pointer"
+            >
+              <span className={cn("block")}>Check an Order</span>
+            </a>
             <div className="flex w-full flex-col gap-4">
-              <NavbarButton
+              {/* <NavbarButton
                 onClick={() => setIsMobileMenuOpen(false)}
                 variant="primary"
                 className="w-full font-light text-base"
               >
                 Check an Order
-              </NavbarButton>
+              </NavbarButton> */}
               <ThemeSwitcher className="z-50 w-full" />
             </div>
           </MobileNavMenu>

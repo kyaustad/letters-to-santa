@@ -34,20 +34,20 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <Suspense
-        fallback={
-          <div className="h-full w-full flex items-center justify-center">
-            <Loader2 className="size-4 animate-spin" />
-          </div>
-        }
+      <body
+        className={`${geistMono.variable} ${belanosima.variable} ${luxuriousScript.variable} antialiased transition-colors duration-500`}
+        suppressHydrationWarning
       >
-        <body
-          className={`${geistMono.variable} ${belanosima.variable} ${luxuriousScript.variable} antialiased transition-colors duration-500`}
-          suppressHydrationWarning
+        <Suspense
+          fallback={
+            <div className="h-full w-full flex items-center justify-center">
+              <Loader2 className="size-4 animate-spin" />
+            </div>
+          }
         >
           <Providers>{children}</Providers>
-        </body>
-      </Suspense>
+        </Suspense>
+      </body>
     </html>
   );
 }
