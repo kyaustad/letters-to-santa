@@ -19,7 +19,7 @@ export default function OrderItem({
 }) {
   return (
     <div className="flex flex-col gap-2 bg-muted p-4 rounded-md shadow-md w-full border-2 border-secondary/20">
-      <div className="flex flex-row gap-2 w-full">
+      <div className="flex flex-col md:flex-row gap-2 w-full">
         <ProductImage
           image={product.product.image}
           className="min-w-32 h-48 object-cover rounded-md"

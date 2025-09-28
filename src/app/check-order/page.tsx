@@ -76,12 +76,13 @@ export default function CheckOrder() {
   return (
     <div className="flex flex-col items-center justify-center h-full gap-4 w-full mt-24 mb-24 max-w-2xl">
       <div className="flex flex-row w-full justify-between max-w-2xl">
-        <Button variant="default" onClick={() => router.push("/")}>
+        <Button variant="default" size="sm" onClick={() => router.push("/")}>
           <HomeIcon className="size-4" />
           Home
         </Button>
         <Button
           variant="secondary"
+          size="sm"
           onClick={handleCheckDifferentOrder}
           disabled={isLoading || !order}
         >
@@ -97,12 +98,12 @@ export default function CheckOrder() {
       {isLoading && <Loader2 className="animate-spin size-10" />}
       {order && (
         <Card className="w-full max-w-2xl">
-          <CardHeader>
+          <CardHeader className="px-2 md:px-6">
             <CardTitle>Order Details</CardTitle>
             <CardDescription>{`Details for your order placed on ${order.createdAt.toLocaleDateString()}`}</CardDescription>
           </CardHeader>
-          <CardContent className="flex flex-col gap-2 w-full">
-            <div className="flex flex-row gap-2 w-full justify-between">
+          <CardContent className="flex flex-col gap-2 w-full px-2 md:px-6">
+            <div className="flex flex-col md:flex-row gap-2 w-full justify-between">
               <p className="text-3xl text-foreground">{`Order Status: `}</p>
               <Badge
                 variant={getStatusBadgeVariant(order.status)}
@@ -113,23 +114,23 @@ export default function CheckOrder() {
             </div>
             <Separator />
 
-            <div className="flex flex-row gap-2 w-full justify-between">
+            <div className="flex flex-col md:flex-row gap-2 w-full justify-between">
               <p className="text-lg text-foreground">{`Order ID: `}</p>
               <p className="text-lg text-muted-foreground">{order.id}</p>
             </div>
-            <div className="flex flex-row gap-2 w-full justify-between">
+            <div className="flex flex-col md:flex-row gap-2 w-full justify-between">
               <p className="text-lg text-foreground">{`Payment ID: `}</p>
               <p className="text-lg text-muted-foreground">
                 {order.paymentIntentId}
               </p>
             </div>
-            <div className="flex flex-row gap-2 w-full justify-between">
+            <div className="flex flex-col md:flex-row gap-2 w-full justify-between">
               <p className="text-lg text-foreground">{`Order Date: `}</p>
               <p className="text-lg text-muted-foreground">
                 {format(order.createdAt, "LLL d, yyyy hh:mm a")}
               </p>
             </div>
-            <div className="flex flex-row gap-2 w-full justify-between">
+            <div className="flex flex-col md:flex-row gap-2 w-full justify-between">
               <p className="text-lg text-foreground">{`Last Updated: `}</p>
               <p className="text-lg text-muted-foreground">
                 {format(order.updatedAt, "LLL d, yyyy hh:mm a")}
@@ -140,15 +141,15 @@ export default function CheckOrder() {
               <p className="text-3xl text-foreground">{`Customer Info: `}</p>
               <p className="text-sm text-muted-foreground">{`This is the information you provided when you placed your order.`}</p>
             </div>
-            <div className="flex flex-row gap-2 w-full justify-between">
+            <div className="flex flex-col md:flex-row gap-2 w-full justify-between">
               <p className="text-lg text-foreground">{`Name: `}</p>
               <p className="text-lg text-muted-foreground">{order.name}</p>
             </div>
-            <div className="flex flex-row gap-2 w-full justify-between">
+            <div className="flex flex-col md:flex-row gap-2 w-full justify-between">
               <p className="text-lg text-foreground">{`Email: `}</p>
               <p className="text-lg text-muted-foreground">{order.email}</p>
             </div>
-            <div className="flex flex-row gap-2 w-full justify-between">
+            <div className="flex flex-col md:flex-row gap-2 w-full justify-between">
               <p className="text-lg text-foreground">{`Phone: `}</p>
               <p className="text-lg text-muted-foreground">{order.phone}</p>
             </div>

@@ -103,7 +103,7 @@ export default function OrderLookupAndList() {
   };
 
   return (
-    <Card className="w-full">
+    <Card className="w-full px-0 mx-0">
       <Tabs
         value={selectedTab}
         onValueChange={(value) => {
@@ -119,7 +119,7 @@ export default function OrderLookupAndList() {
             <TabsTrigger value="phone">Phone</TabsTrigger>
             <TabsTrigger value="paymentIntent">Payment ID</TabsTrigger>
           </TabsList>
-          <CardContent className="flex flex-col gap-2 w-full mt-4">
+          <CardContent className="flex flex-col gap-2 w-full mt-4 p-0 ">
             <TabsContent value="email">
               <Form {...emailForm}>
                 <form
@@ -246,13 +246,15 @@ export default function OrderLookupAndList() {
           </CardContent>
         </CardHeader>
       </Tabs>
-      {foundOrders && (
-        <div className="flex flex-col gap-4 m-4 mx-8 p-8 bg-muted rounded-lg shadow-md border border-border">
-          {foundOrders.map((order) => (
-            <OrderCard key={order.id} order={order} />
-          ))}
-        </div>
-      )}
+      <CardContent className="flex flex-col gap-2 w-full mt-4 p-0 m-0">
+        {foundOrders && (
+          <div className="flex flex-col gap-4 m-4 md:mx-8 p-2 md:p-8 bg-muted rounded-lg shadow-md border border-border">
+            {foundOrders.map((order) => (
+              <OrderCard key={order.id} order={order} />
+            ))}
+          </div>
+        )}
+      </CardContent>
     </Card>
   );
 }
@@ -279,7 +281,7 @@ function OrderCard({ order }: { order: Order }) {
       onClick={handleSelectOrder}
     >
       <CardHeader className="pb-3">
-        <div className="flex flex-row justify-between items-start">
+        <div className="flex flex-col md:flex-row justify-between items-start gap-2">
           <div className="flex flex-col gap-1">
             <CardTitle className="text-lg">Order #{order.id}</CardTitle>
             <CardDescription>
@@ -314,7 +316,7 @@ function OrderCard({ order }: { order: Order }) {
               {orderProducts.slice(0, 2).map((product) => (
                 <div
                   key={product.id}
-                  className="flex flex-row justify-between items-center"
+                  className="flex flex-col md:flex-row justify-between items-center p-2 border border-border rounded-md"
                 >
                   <p className="text-sm truncate flex-1 mr-2">
                     {product.product.name}
