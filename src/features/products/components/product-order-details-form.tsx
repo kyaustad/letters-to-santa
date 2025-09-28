@@ -35,7 +35,11 @@ const productOrderDetailsFormSchema = z.object({
   street: z.string().min(1, "Street address is required"),
   city: z.string().min(1, "City is required"),
   state: z.string().min(2, "State is required"),
-  zip: z.number().min(5, "Zip code is required and must be 5 digits"),
+  zip: z
+    .union([z.number().min(5, "Zip code must be 5 digits"), z.literal("")])
+    .refine((val) => val !== "", {
+      message: "Zip code is required",
+    }),
   country: z.string().min(1, "Country is required"),
   message: z.string().min(1, "Message is required"),
 });
@@ -58,7 +62,7 @@ export const ProductOrderDetailsForm = ({
       street: "",
       city: "",
       state: "AK",
-      zip: 12345,
+      zip: "",
       country: "USA",
       message: DefaultMessage,
     },
@@ -77,7 +81,7 @@ export const ProductOrderDetailsForm = ({
           street: data.street,
           city: data.city,
           state: data.state,
-          zip: data.zip.toString(),
+          zip: typeof data.zip === "number" ? data.zip.toString() : data.zip,
           country: data.country,
         },
       };
@@ -202,14 +206,17 @@ export const ProductOrderDetailsForm = ({
                     pattern="[0-9]*"
                     step={1}
                     inputMode="numeric"
-                    value={field.value}
+                    value={field.value || ""}
                     autoComplete="postal-code"
                     onChange={(e) => {
-                      if (e.target.value.length <= 5) {
-                        field.onChange(Number(e.target.value));
-                      } else {
-                        const value = e.target.value.slice(0, 5);
+                      const value = e.target.value;
+                      if (value === "") {
+                        field.onChange("");
+                      } else if (value.length <= 5) {
                         field.onChange(Number(value));
+                      } else {
+                        const truncatedValue = value.slice(0, 5);
+                        field.onChange(Number(truncatedValue));
                       }
                     }}
                   />
@@ -288,7 +295,7 @@ export const EditProductOrderDetailsForm = ({
           street: data.street,
           city: data.city,
           state: data.state,
-          zip: data.zip.toString(),
+          zip: typeof data.zip === "number" ? data.zip.toString() : data.zip,
           country: data.country,
         },
       };
@@ -411,14 +418,17 @@ export const EditProductOrderDetailsForm = ({
                     pattern="[0-9]*"
                     step={1}
                     inputMode="numeric"
-                    value={field.value}
+                    value={field.value || ""}
                     autoComplete="postal-code"
                     onChange={(e) => {
-                      if (e.target.value.length <= 5) {
-                        field.onChange(Number(e.target.value));
-                      } else {
-                        const value = e.target.value.slice(0, 5);
+                      const value = e.target.value;
+                      if (value === "") {
+                        field.onChange("");
+                      } else if (value.length <= 5) {
                         field.onChange(Number(value));
+                      } else {
+                        const truncatedValue = value.slice(0, 5);
+                        field.onChange(Number(truncatedValue));
                       }
                     }}
                   />
