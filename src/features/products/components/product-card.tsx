@@ -93,7 +93,7 @@ function PreviewDialog({
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="max-w-4xl px-4">
+      <DialogContent className="max-h-[80vh] overflow-y-auto max-w-4xl px-4">
         <DialogHeader>
           <DialogTitle>{product.name}</DialogTitle>
           <DialogDescription>{product.description}</DialogDescription>
@@ -126,7 +126,7 @@ function AddToCartDialog({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent>
+      <DialogContent className="max-h-[80vh] overflow-y-auto">
         <DialogHeader>
           <div className="flex flex-row items-center gap-4">
             <ProductImage
