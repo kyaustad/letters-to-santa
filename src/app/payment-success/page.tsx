@@ -18,20 +18,38 @@ export default function PaymentSuccess() {
   const [isLoading, setIsLoading] = useState(true);
 
   const processOrder = async () => {
+    console.log("=== STARTING processOrder ===");
+    console.log("Redirect Status:", redirectStatus);
+    console.log("Payment Intent:", paymentIntent);
+    console.log("Has Cart:", !!cart);
+    console.log("Has Cart With Products:", !!cartWithProducts);
+    console.log("Environment:", process.env.NODE_ENV);
+
     if (redirectStatus === "succeeded" && paymentIntent) {
       if (!cartWithProducts || !cart) {
+        console.log("ERROR: Missing cart data");
+        toast.error("Missing cart data. Please contact support.");
         return;
       }
+
+      console.log("Calling successfulOrderActions...");
       const success = await successfulOrderActions(
         paymentIntent,
         cartWithProducts,
       );
+
+      console.log("successfulOrderActions result:", success);
+
       if (success) {
+        console.log("Order processing successful, clearing cart");
         toast.success("Order Placed!");
         clearCart(false);
       } else {
+        console.log("Order processing failed");
         toast.error("Failed to validate order.");
       }
+    } else {
+      console.log("Payment not succeeded or missing payment intent");
     }
   };
 

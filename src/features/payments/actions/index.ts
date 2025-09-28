@@ -25,6 +25,13 @@ export async function createPaymentIntent({
   customerEmail: string;
   customerPhone: string;
 }): Promise<string | null> {
+  console.log("=== STARTING createPaymentIntent ===");
+  console.log("Amount:", amount);
+  console.log("Customer Name:", customerName);
+  console.log("Customer Email:", customerEmail);
+  console.log("Customer Phone:", customerPhone ? "***masked***" : "missing");
+  console.log("Environment:", process.env.NODE_ENV);
+
   if (
     !customerName ||
     !customerEmail ||
@@ -33,9 +40,12 @@ export async function createPaymentIntent({
     customerEmail === "" ||
     customerPhone === ""
   ) {
+    console.log("ERROR: Missing required fields");
     return null;
   }
+
   try {
+    console.log("Creating Stripe payment intent...");
     const paymentIntent = await stripe.paymentIntents.create({
       amount: amount,
       currency: "usd",
@@ -49,9 +59,21 @@ export async function createPaymentIntent({
       },
     });
 
+    console.log("Payment intent created successfully:", {
+      id: paymentIntent.id,
+      amount: paymentIntent.amount,
+      status: paymentIntent.status,
+    });
+    console.log("=== createPaymentIntent COMPLETED SUCCESSFULLY ===");
+
     return paymentIntent.client_secret;
   } catch (error) {
-    console.error("Error creating payment intent:", error);
+    console.error("=== ERROR in createPaymentIntent ===");
+    console.error("Error details:", error);
+    console.error(
+      "Error message:",
+      error instanceof Error ? error.message : "Unknown error",
+    );
     return null;
   }
 }
@@ -119,17 +141,43 @@ export async function successfulOrderActions(
   paymentIntent: string,
   cart: InProgressOrderWithProducts,
 ): Promise<boolean> {
+  console.log("=== STARTING successfulOrderActions ===");
+  console.log("Payment Intent:", paymentIntent);
+  console.log("Cart products count:", cart?.products?.length);
+  console.log("Environment:", process.env.NODE_ENV);
+
   try {
+    console.log("Retrieving payment intent from Stripe...");
     const intent = await stripe.paymentIntents.retrieve(paymentIntent);
-    // console.log("Intent", intent);
+    console.log("Payment intent retrieved:", {
+      id: intent.id,
+      status: intent.status,
+      amount: intent.amount,
+      hasMetadata: !!(
+        intent.metadata?.customerName &&
+        intent.metadata?.customerEmail &&
+        intent.metadata?.customerPhone
+      ),
+    });
+
     if (intent && intent.status === "succeeded") {
-      const products = await JSON.stringify(cart.products);
+      console.log("Payment succeeded, processing order...");
+
+      console.log("Testing database connection...");
+      const products = JSON.stringify(cart.products);
+      console.log("Products serialized, length:", products.length);
+
+      console.log("Checking for existing order...");
       const existingOrder = await db.query.orders.findFirst({
         where: eq(orders.paymentIntentId, paymentIntent),
       });
+
       if (existingOrder) {
+        console.log("Order already exists, skipping:", existingOrder.id);
         return false;
       }
+
+      console.log("Creating new order in database...");
       const order = await db
         .insert(orders)
         .values({
@@ -142,25 +190,44 @@ export async function successfulOrderActions(
           phone: intent.metadata.customerPhone,
         })
         .returning();
+
       if (!order || order.length === 0) {
+        console.log("ERROR: No order returned from database insert");
         return false;
       }
 
+      console.log("Order created successfully:", {
+        orderId: order[0].id,
+        paymentIntentId: order[0].paymentIntentId,
+      });
+
       // Send order confirmation email
       try {
+        console.log("Sending order confirmation email...");
         await sendOrderConfirmationEmail(order[0]);
-        console.log(`Order confirmation email sent for order ${paymentIntent}`);
+        console.log("Order confirmation email sent successfully");
       } catch (emailError) {
         console.error("Failed to send order confirmation email:", emailError);
         // Don't fail the entire operation if email fails
       }
 
+      console.log("=== successfulOrderActions COMPLETED SUCCESSFULLY ===");
       return true;
     }
 
+    console.log("Payment intent not succeeded, status:", intent?.status);
     return false;
   } catch (error) {
-    console.error("Error successful order actions:", error);
+    console.error("=== ERROR in successfulOrderActions ===");
+    console.error("Error details:", error);
+    console.error(
+      "Error message:",
+      error instanceof Error ? error.message : "Unknown error",
+    );
+    console.error(
+      "Error stack:",
+      error instanceof Error ? error.stack : "No stack",
+    );
     return false;
   }
 }
