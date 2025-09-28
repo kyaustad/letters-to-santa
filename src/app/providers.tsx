@@ -21,7 +21,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
       <NavBar />
       <main
         id="page-container"
-        className="w-full h-full flex flex-col items-center p-4 max-w-screen-2xl mx-auto pt-20 lg:pt-4 overflow-x-hidden transition-colors duration-500"
+        className="w-full h-full flex flex-col items-center p-4 max-w-screen-2xl mx-auto pt-20 lg:pt-4 overflow-x-hidden"
       >
         <CartProvider>
           {children}

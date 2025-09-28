@@ -35,7 +35,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistMono.variable} ${belanosima.variable} ${luxuriousScript.variable} antialiased transition-colors duration-500`}
+        className={`${geistMono.variable} ${belanosima.variable} ${luxuriousScript.variable} antialiased`}
         suppressHydrationWarning
       >
         <Suspense
