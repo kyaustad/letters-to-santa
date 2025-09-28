@@ -6,7 +6,7 @@ import { ProductCard } from "@/features/products/components/product-card";
 
 export default function Shop() {
   return (
-    <div className="flex flex-col items-center gap-2 px-4 w-full mt-12">
+    <div className="flex flex-col items-center gap-2 px-4 w-full mt-12 mb-32">
       <HeroText title="Shop" />
       {/* <StripeDemo /> */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
