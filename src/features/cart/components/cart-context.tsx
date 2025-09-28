@@ -102,20 +102,39 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  const getExistingCart = async () => {
+  const getExistingCart = () => {
+    console.log("=== LOADING CART FROM LOCALSTORAGE ===");
     const existingCart = localStorage.getItem("cart");
+    console.log("Raw localStorage cart:", existingCart);
+
     if (existingCart) {
-      const parsedCart = (await JSON.parse(existingCart)) as InProgressOrder;
-      setCart(parsedCart);
-      setCartWithProducts({
-        products: parsedCart.products.map((product) => ({
-          ...product,
-          product: productList.find((p) => p.id === product.productId) ?? null,
-        })) as InProgressProductWithProduct[],
-        total: parsedCart.total,
-      });
+      try {
+        const parsedCart = JSON.parse(existingCart) as InProgressOrder;
+        console.log("Parsed cart:", parsedCart);
+        console.log("Cart products count:", parsedCart.products?.length || 0);
+
+        setCart(parsedCart);
+
+        const cartWithProductsData = {
+          products: parsedCart.products.map((product) => ({
+            ...product,
+            product:
+              productList.find((p) => p.id === product.productId) ?? null,
+          })) as InProgressProductWithProduct[],
+          total: parsedCart.total,
+        };
+
+        console.log("Cart with products:", cartWithProductsData);
+        setCartWithProducts(cartWithProductsData);
+      } catch (error) {
+        console.error("Error parsing cart from localStorage:", error);
+        // Clear corrupted data
+        localStorage.removeItem("cart");
+        localStorage.removeItem("cartWithProducts");
+      }
+    } else {
+      console.log("No existing cart found in localStorage");
     }
-    return null;
   };
 
   const updateCart = (product: InProgressProduct): boolean => {
@@ -153,16 +172,25 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
   // Use effect to update the cart in local storage whenever it changes
   // Also used to update the cart with products
   useEffect(() => {
+    console.log("=== CART CONTEXT USEEFFECT ===");
+    console.log("Cart changed:", cart);
+
     if (cart) {
+      console.log("Updating localStorage and cartWithProducts");
       localStorage.setItem("cart", JSON.stringify(cart));
-      setCartWithProducts({
+
+      const cartWithProductsData = {
         products: cart.products.map((product) => ({
           ...product,
           product: productList.find((p) => p.id === product.productId) ?? null,
         })) as InProgressProductWithProduct[],
         total: cart.total,
-      });
+      };
+
+      console.log("Setting cartWithProducts:", cartWithProductsData);
+      setCartWithProducts(cartWithProductsData);
     } else {
+      console.log("Cart is null, clearing localStorage and cartWithProducts");
       localStorage.removeItem("cart");
       setCartWithProducts(null);
     }

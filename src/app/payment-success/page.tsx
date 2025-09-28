@@ -16,6 +16,35 @@ export default function PaymentSuccess() {
   const paymentIntent = searchParams.get("payment_intent");
   const redirectStatus = searchParams.get("redirect_status");
   const [isLoading, setIsLoading] = useState(true);
+  const [cartLoaded, setCartLoaded] = useState(false);
+
+  // Wait for cart to load properly
+  useEffect(() => {
+    console.log("=== CART LOADING CHECK ===");
+    console.log("Cart exists:", !!cart);
+    console.log("CartWithProducts exists:", !!cartWithProducts);
+    console.log("Cart products count:", cart?.products?.length || 0);
+    console.log(
+      "CartWithProducts count:",
+      cartWithProducts?.products?.length || 0,
+    );
+
+    if (cart && cartWithProducts) {
+      console.log("Cart fully loaded, setting cartLoaded to true");
+      setCartLoaded(true);
+    } else {
+      console.log("Cart not fully loaded yet, waiting...");
+      // Try again after a short delay
+      const timer = setTimeout(() => {
+        if (cart && cartWithProducts) {
+          console.log("Cart loaded after delay");
+          setCartLoaded(true);
+        }
+      }, 1000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [cart, cartWithProducts]);
 
   const processOrder = async () => {
     console.log("=== STARTING processOrder ===");
@@ -23,20 +52,48 @@ export default function PaymentSuccess() {
     console.log("Payment Intent:", paymentIntent);
     console.log("Has Cart:", !!cart);
     console.log("Has Cart With Products:", !!cartWithProducts);
+    console.log("Cart Loaded:", cartLoaded);
     console.log("Environment:", process.env.NODE_ENV);
 
     if (redirectStatus === "succeeded" && paymentIntent) {
-      if (!cartWithProducts || !cart) {
-        console.log("ERROR: Missing cart data");
+      let cartToUse = cartWithProducts;
+
+      // Fallback: try to get cart from localStorage if context isn't working
+      if (!cartToUse || !cart) {
+        console.log(
+          "Cart context not working, trying localStorage fallback...",
+        );
+        try {
+          const localStorageCart = localStorage.getItem("cart");
+          if (localStorageCart) {
+            const parsedCart = JSON.parse(localStorageCart);
+            console.log("Found cart in localStorage:", parsedCart);
+            cartToUse = parsedCart;
+          }
+        } catch (error) {
+          console.error("Error parsing localStorage cart:", error);
+        }
+      }
+
+      if (
+        !cartToUse ||
+        !cartToUse.products ||
+        cartToUse.products.length === 0
+      ) {
+        console.log(
+          "ERROR: Missing cart data from both context and localStorage",
+        );
+        console.log("Cart:", cart);
+        console.log("CartWithProducts:", cartWithProducts);
+        console.log("LocalStorage cart:", cartToUse);
         toast.error("Missing cart data. Please contact support.");
         return;
       }
 
-      console.log("Calling successfulOrderActions...");
-      const success = await successfulOrderActions(
-        paymentIntent,
-        cartWithProducts,
-      );
+      console.log("Cart data found, calling successfulOrderActions...");
+      console.log("Cart products:", cartToUse.products);
+
+      const success = await successfulOrderActions(paymentIntent, cartToUse);
 
       console.log("successfulOrderActions result:", success);
 
@@ -44,6 +101,8 @@ export default function PaymentSuccess() {
         console.log("Order processing successful, clearing cart");
         toast.success("Order Placed!");
         clearCart(false);
+        // Also clear localStorage
+        localStorage.removeItem("cart");
       } else {
         console.log("Order processing failed");
         toast.error("Failed to validate order.");
@@ -54,11 +113,24 @@ export default function PaymentSuccess() {
   };
 
   useEffect(() => {
-    if (redirectStatus === "succeeded" && paymentIntent && isLoading) {
-      processOrder();
-      setIsLoading(false);
+    console.log("=== PAYMENT SUCCESS USEEFFECT ===");
+    console.log("Redirect Status:", redirectStatus);
+    console.log("Payment Intent:", paymentIntent);
+    console.log("Is Loading:", isLoading);
+    console.log("Cart Loaded:", cartLoaded);
+
+    if (
+      redirectStatus === "succeeded" &&
+      paymentIntent &&
+      isLoading &&
+      cartLoaded
+    ) {
+      console.log("All conditions met, processing order...");
+      processOrder().then(() => setIsLoading(false));
+    } else {
+      console.log("Conditions not met yet, waiting...");
     }
-  }, [redirectStatus, clearCart, paymentIntent]);
+  }, [redirectStatus, paymentIntent, isLoading, cartLoaded]);
 
   if (isLoading) {
     return (
