@@ -102,6 +102,13 @@ export default function OrderLookupAndList() {
     }
   };
 
+  const getTabTitle = (tab: string) => {
+    if (tab === "email") return "Email";
+    if (tab === "phone") return "Phone";
+    if (tab === "paymentIntent") return "Payment ID";
+    return "";
+  };
+
   return (
     <Card className="w-full px-0 mx-0">
       <Tabs
@@ -249,9 +256,13 @@ export default function OrderLookupAndList() {
       <CardContent className="flex flex-col gap-2 w-full mt-4 p-0 m-0">
         {foundOrders && (
           <div className="flex flex-col gap-4 m-4 md:mx-8 p-2 md:p-8 bg-muted rounded-lg shadow-md border border-border">
-            {foundOrders.map((order) => (
-              <OrderCard key={order.id} order={order} />
-            ))}
+            {foundOrders.length > 0 ? (
+              foundOrders.map((order) => (
+                <OrderCard key={order.id} order={order} />
+              ))
+            ) : (
+              <p className="text-sm text-muted-foreground">{`No orders found using that ${getTabTitle(selectedTab)}.`}</p>
+            )}
           </div>
         )}
       </CardContent>

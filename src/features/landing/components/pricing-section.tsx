@@ -138,13 +138,50 @@ export const PricingSection = () => {
         </div>
 
         {/* Additional Info */}
-        <div className="text-center bg-muted/30 rounded-lg p-6">
+        <div className="text-center bg-muted dark:bg-muted/30 rounded-lg p-6">
           <h3 className="text-lg font-semibold mb-2">{`No Hidden Fees`}</h3>
           <p className="text-muted-foreground">
             {`The $9.89 price includes template selection, customization,
             printing, North Pole postmark, packaging, and delivery. What you see
             is what you pay.`}
           </p>
+        </div>
+        {/* Discount Information Section */}
+        <div className="w-full p-4 bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800 rounded-lg mb-10 mt-12">
+          <h2 className="text-xl text-center font-semibold text-blue-800 dark:text-blue-200 mb-2">
+            {`Bundle Discount Information`}
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-blue-700 dark:text-blue-300">
+            <ul className="flex flex-col gap-1 list-disc">
+              <li className="ml-4">
+                <span className="font-medium">{`1 item:`}</span>
+                {` $9.89 (no discount)`}
+              </li>
+              <li className="ml-4">
+                <span className="font-medium">{`2 items:`}</span>
+                {` 10% off all items`}
+              </li>
+              <li className="ml-4">
+                <span className="font-medium">{`3 items:`}</span>
+                {` 15% off all items`}
+              </li>
+            </ul>
+            <ul className="flex flex-col gap-1 list-disc">
+              <li className="ml-4">
+                <span className="font-medium">{`4+ items:`}</span>
+                {` First 3 items get
+              15% off`}
+              </li>
+              <li className="ml-4">
+                <span className="font-medium">{`Additional items:`}</span>
+                {` $7.89 each
+              (addon price)`}
+              </li>
+              {/* <p className="ml-2 text-xs text-blue-600 dark:text-blue-400 mt-2">
+                {`*All prices shown include applicable discounts`}
+              </p> */}
+            </ul>
+          </div>
         </div>
       </div>
     </section>
